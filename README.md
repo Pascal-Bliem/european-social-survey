@@ -8,10 +8,8 @@ I attempt to answer these question here. After a contextual introduction, we wil
 
 The whole project is contained in this [Jupyter notebook](./insights-from-the-european-social-survey-8.ipynb). The interactive visualization uses Java Script which cannot be rendered here on GitHub - please view the notebook [here on Jupyter's nbviewer](https://nbviewer.jupyter.org/github/Pascal-Bliem/european-social-survey/blob/master/insights-from-the-european-social-survey-8.ipynb). 
 
-In case this link does not work, please go on [nbviewer.jupyter.org](https://nbviewer.jupyter.org/) and paste the URL 
-
-https://github.com/Pascal-Bliem/european-social-survey/blob/master/insights-from-the-european-social-survey-8.ipynb 
-
+In case this link does not work, please go on [nbviewer.jupyter.org](https://nbviewer.jupyter.org/) and paste the URL  
+https://github.com/Pascal-Bliem/european-social-survey/blob/master/insights-from-the-european-social-survey-8.ipynb  
 into the search bar.
 
 Thanks for your interest in the project, I hope you will find it interesting. If you have any questions, please feel free to message me.
