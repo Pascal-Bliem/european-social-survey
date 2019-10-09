@@ -137,5 +137,61 @@ Decision trees work quite differently. Based on the known data, they split the r
 <em>The idea of boosted decision trees. <a href="https://sefiks.com/2018/10/04/a-step-by-step-gradient-boosting-decision-tree-example/">(image source)</a></em> 
 </p>
 
+After a lot of fine-tuning, both models actually perform quite well in predicting happiness on a scale from 0 to 10. The linear and the tree model made an average absolute error of about 1.2 and 1.1, respectively. Both models provide their own ways to assess how important a certain feature is for the predicted happiness and how the value of a feature contributes to the calculated happiness for an individual prediction. But luckily there is also a more general concept called [Shapley values](https://en.wikipedia.org/wiki/Shapley_value) that works for any kind of machine lerning model. Shapley values are borrowed from game theory, a mathematical sub-field of economics. The idea is the following: How do we know how much each individual feature value contributes to the value of a prediction? We have to calculate each feature's marginal contribution for every possible permutation of features. The average of all these marginal contributions is the Shapley value. It tells us how much the value of a feature increases or decreases the predicted score (happiness in this case) compared to a baseline value (average happiness in this case).
+
+Let's go through an example. We randomly select a respondent and have a look at some of the answers she/he gave to the survey questions:
+
+| Question                                                                     | Variable name | Variable value |
+|------------------------------------------------------------------------------|---------------|----------------|
+| Subjective general health                                                    | health        | 1.0            |
+| How satisfied with present state of economy in country                       | stfeco        | 0.0            |
+| How often socially meet with friends, relatives or colleagues                | sclmeet       | 2.0            |
+| Take part in social activities compared to others of same age                | sclact        | 4.0            |
+| How many people with whom you can discuss intimate and personal matters      | inprdsc       | 0.0            |
+| How likely not enough money for household necessities next 12 months         | lknemny       | 1.0            |
+
+We can see that this respondent considers himself very unhealthy, is very dissatisfied with the state of the economy, rarely meets friends or coworkers, and has no one to discuss personal matters with. On the other hand she/he takes part in a lot of social activities and is not very worried about having too little money for household necessities. Now how does this affect the predicted happiness? Let's have a look at the tree model's prediction in a visual way:
+
+<p align="center">
+<img src="./figures/forceplot.png" alt="forceplot" />  
+</p>
+
+The predicted happiness value is only 4.46 out of 10 (the actual value was 5, pretty close). That is low compared to the average happiness of 7.4. The arrows in this figure represent the variables' calculated Shapley values. We can see that this person's poor health, dissatisfaction with the economy, and lack of close friends reduce the happiness (blue arrows), whereas taking part in social activities and little financial worries contribute positively (red arrows) to this person's happiness. 
+
+If we do this kind of calculation for a lot of people, we will be able to see which variables are very important for predicting happiness by looking for the ones with large absolute Shapley values. If a variable is strongly positively correlated with happiness, then having a large value of this variable will contribute a lot to happiness (large positive Shapley value), while having a small value of this variable will reduce happiness (large negative Shapley value). Let's have a look at the corresponding plot:
+
+<p align="center">
+<img src="./figures/violin.png" alt="violin" />  
+</p>
+<p align="center">
+<em>Shapely value distribution for the 10 most informative variables.</a></em> 
+</p>
+
+| Question | Variable name                                                        |
+|----------|----------------------------------------------------------------------|
+| health   | Subjective general health                                            |
+| stfeco   | How satisfied with present state of economy in country               |
+| atchctr  | How emotionally attached to [country]                                |
+| hincfel  | Feeling about household's income nowadays                            |
+| hhmmb    | Number of people living regularly as member of household             |
+| lknemny  | How likely not enough money for household necessities next 12 months |
+| trstplc  | Trust in the police                                                  |
+| stfedu   | State of education in country nowadays                               |
+| sclmeet  | How often socially meet with friends, relatives or colleagues        |
+| sclact   | Take part in social activities compared to others of same age</pre>  |
+
+
+### Conclusion <a id="conclusion" ></a>
+
+In this work, we have analyzed data from the 8th European Social Survey. We went through a detailed [data cleaning](#data) procedure in which suitable variables corresponding to survey questions were selected, invalid data points were removed, and data scales were adjusted, if necessary. 
+
+We explored how different questions correlate with each other and how the answers are distributed among the participating countries by employing an interactive [visualization](#viz). We saw certain patterns which may be described as attitudes, e.g. positive correlations between xeno- and homophobia, or political and climate responsibility. 
+
+Furthermore, we performed [statistical tests](#stats) to evaluate the statistical significance and effect size of differences in answers of respondents from different countries. We saw, for example, that there is no significant difference in the reported happiness of German and Swedish respondents, whereas there is a very large difference in how important Italian and French respondents consider personal success and recognition.
+
+Finally, we employed [machine learning](#ml) methods to predict how happy respondents considers themselves, based on how they answered other questions. We compared the predictions of linear and gradient-boosted decision tree models in terms of their predictive power and interpretability. We then used Shapley values to explain how each feature contributes to an individual prediction for the two models. Good subjective health, high satisfaction with the present state of the economy, and an emotional attachment to the home country tend to contribute positively to the respondents' happiness. On the contrary, worries about not having enough money for household necessities, or being hampered by illness or disability contributes negatively to the respondents' happiness.
+
+That's it! Thanks a lot for following me through this project and thanks as well to the organizers and participants of this survey and to the developers of the many great open-source tools I used in this project.
+
 
 
