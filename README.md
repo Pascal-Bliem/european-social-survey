@@ -160,25 +160,29 @@ The predicted happiness value is only 4.46 out of 10 (the actual value was 5, pr
 
 If we do this kind of calculation for a lot of people, we will be able to see which variables are very important for predicting happiness by looking for the ones with large absolute Shapley values. If a variable is strongly positively correlated with happiness, then having a large value of this variable will contribute a lot to happiness (large positive Shapley value), while having a small value of this variable will reduce happiness (large negative Shapley value). Let's have a look at the corresponding plot:
 
+| Variable/feature name | Question                                                             |
+|---------------|----------------------------------------------------------------------|
+| health        | Subjective general health                                            |
+| stfeco        | How satisfied with present state of economy in country               |
+| atchctr       | How emotionally attached to [country]                                |
+| hincfel       | Feeling about household's income nowadays                            |
+| hhmmb         | Number of people living regularly as member of household             |
+| lknemny       | How likely not enough money for household necessities next 12 months |
+| trstplc       | Trust in the police                                                  |
+| stfedu        | State of education in country nowadays                               |
+| sclmeet       | How often socially meet with friends, relatives or colleagues        |
+| sclact        | Take part in social activities compared to others of same age</pre>  |
+
 <p align="center">
-<img src="./figures/violin.png" alt="violin" />  
+<img src="./figures/violin.png" alt="violin"  height=400/>  
 </p>
 <p align="center">
 <em>Shapely value distribution for the 10 most informative variables.</a></em> 
 </p>
 
-| Question | Variable name                                                        |
-|----------|----------------------------------------------------------------------|
-| health   | Subjective general health                                            |
-| stfeco   | How satisfied with present state of economy in country               |
-| atchctr  | How emotionally attached to [country]                                |
-| hincfel  | Feeling about household's income nowadays                            |
-| hhmmb    | Number of people living regularly as member of household             |
-| lknemny  | How likely not enough money for household necessities next 12 months |
-| trstplc  | Trust in the police                                                  |
-| stfedu   | State of education in country nowadays                               |
-| sclmeet  | How often socially meet with friends, relatives or colleagues        |
-| sclact   | Take part in social activities compared to others of same age</pre>  |
+We can see that variables like health, satisfaction with the economy, and emotional attachment to the country are rather informative features. People who answered with a high value for health have a high Shapley value for this feature, which means it contributes strongly to their happiness. On the contrary, people who answered with a low value for health have a low negative Shapley value for this feature, which means it reduces their happiness. More healthy, more happy - makes sense. Other features, such as meeting with friends and taking part in social activities, have a lower spread of Shapley values, which means it is less decisive for the predicted happiness if the respondent answered with a high or low value for this question.
+
+Pretty cool, right? We can feed our models with data that we already have and let it generalize to new observations to predict something we are interested in. And we can even find out and quantify which aspects are important, overall and for individual predictions. This may seem a bit trivial in a toy example like predicting happiness, but in principle we can apply these techniques for every problem in which we need to predict a value or classify something based on what we know from previous examples.
 
 
 ### Conclusion <a id="conclusion" ></a>
@@ -191,7 +195,6 @@ Furthermore, we performed [statistical tests](#stats) to evaluate the statistica
 
 Finally, we employed [machine learning](#ml) methods to predict how happy respondents considers themselves, based on how they answered other questions. We compared the predictions of linear and gradient-boosted decision tree models in terms of their predictive power and interpretability. We then used Shapley values to explain how each feature contributes to an individual prediction for the two models. Good subjective health, high satisfaction with the present state of the economy, and an emotional attachment to the home country tend to contribute positively to the respondents' happiness. On the contrary, worries about not having enough money for household necessities, or being hampered by illness or disability contributes negatively to the respondents' happiness.
 
+Are these kinds of methods only useful for social science topics? Absolutely not! The way that we analyzed the data here, using statistical inference and machine learning methods, can be transferred to all kinds of disciplines; form  natural sciences, over medicine, to business. Imagine, instead of people in a social survey, we are dealing with your customers. Based on all the information you already have about your customers, how likely do you think this particular customer is going to churn soon? Should you launch some intervention to keep her/him? Use the methods I outlined here to find out!
+
 That's it! Thanks a lot for following me through this project and thanks as well to the organizers and participants of this survey and to the developers of the many great open-source tools I used in this project.
-
-
-
