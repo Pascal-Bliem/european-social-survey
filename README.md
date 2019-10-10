@@ -144,28 +144,28 @@ Let's go through an example. We randomly select a respondent and have a look at 
 
 | Question                                                                     | Feature name | Feature value |
 |------------------------------------------------------------------------------|---------------|----------------|
-| Subjective general health                                                    | health        | 1.0            |
-| How satisfied with present state of economy in country                       | stfeco        | 0.0            |
-| How often socially meet with friends, relatives or colleagues                | sclmeet       | 2.0            |
-| Take part in social activities compared to others of same age                | sclact        | 4.0            |
-| How many people with whom you can discuss intimate and personal matters      | inprdsc       | 0.0            |
-| How likely not enough money for household necessities next 12 months         | lknemny       | 1.0            |
+| Subjective general health                                                    | health        | 1            |
+| How satisfied with present state of economy in country                       | stfeco        | 0            |
+| How often socially meet with friends, relatives or colleagues                | sclmeet       | 2            |
+| Take part in social activities compared to others of same age                | sclact        | 4            |
+| How many people with whom you can discuss intimate and personal matters      | inprdsc       | 0            |
+| How likely not enough money for household necessities next 12 months         | lknemny       | 1            |
 
-We can see that this respondent considers himself very unhealthy, is very dissatisfied with the state of the economy, rarely meets friends or coworkers, and has no one to discuss personal matters with. On the other hand she/he takes part in a lot of social activities and is not very worried about having too little money for household necessities. Now how does this affect the predicted happiness? Let's have a look at the tree model's prediction in a visual way:
+We can see that this respondent considers her/himself very unhealthy (1 out of 5), is very dissatisfied with the state of the economy (0 out of 10), rarely meets friends or coworkers (2 out of 7), and has no one to discuss personal matters with (0 out of 6). On the other hand she/he takes part in a lot of social activities (4 out of 5) and is not very worried about having too little money for household necessities (1 out of 4). Now how does this affect the predicted happiness? Let's have a look at the tree model's prediction in a visual way:
 
 <p align="center">
 <img src="./figures/forceplot.png" alt="forceplot" />  
 </p>
 
-The predicted happiness value is only 4.46 out of 10 (the actual value was 5, pretty close). That is low compared to the average happiness of 7.4. The arrows in this figure represent the features' calculated Shapley values. We can see that this person's poor health, dissatisfaction with the economy, and lack of close friends reduce the happiness (blue arrows), whereas taking part in social activities and little financial worries contribute positively (red arrows) to this person's happiness. 
+The predicted happiness value is only 4.46 out of 10 (the actual value was 5, pretty close). That is low compared to the average happiness baseline of 7.4. The arrows in this figure represent the features' calculated Shapley values. We can see that this person's poor health, dissatisfaction with the economy, and lack of close friends reduce the happiness (blue arrows) compared to the baseline value, whereas taking part in social activities and little financial worries contribute positively (red arrows) to this person's happiness. 
 
-If we do this kind of calculation for a lot of people, we will be able to see which features are very important for predicting happiness by looking for the ones with large absolute Shapley values. If a feature is strongly positively correlated with happiness, then having a large value of this feature will contribute a lot to happiness (large positive Shapley value), while having a small value of this feature will reduce happiness (large negative Shapley value). Let's have a look at the corresponding plot:
+If we do this kind of calculation for a lot of people, we will be able to see which features are very important for predicting happiness by looking for the ones with large absolute Shapley values. If a feature is strongly positively correlated with happiness, then having a large value of this feature will contribute a lot to happiness (large positive Shapley value), while having a small value of this feature will reduce happiness (large negative Shapley value). Let's have a look at the corresponding plot (with feature explanation in the table) below:
 
-| Feature name | Question                                                             |
+| Feature name  | Question                                                             |
 |---------------|----------------------------------------------------------------------|
 | health        | Subjective general health                                            |
 | stfeco        | How satisfied with present state of economy in country               |
-| atchctr       | How emotionally attached to [country]                                |
+| atchctr       | How emotionally attached to country                                  |
 | hincfel       | Feeling about household's income nowadays                            |
 | hhmmb         | Number of people living regularly as member of household             |
 | lknemny       | How likely not enough money for household necessities next 12 months |
@@ -181,7 +181,7 @@ If we do this kind of calculation for a lot of people, we will be able to see wh
 <em>Shapely value distribution for the 10 most informative features.</a></em> 
 </p>
 
-We can see that features like health, satisfaction with the economy, and emotional attachment to the country are rather informative features. People who answered with a high value for health have a high Shapley value for this feature, which means it contributes strongly to their happiness. On the contrary, people who answered with a low value for health have a low negative Shapley value for this feature, which means it reduces their happiness. More healthy, more happy - makes sense. Other features, such as meeting with friends and taking part in social activities, have a lower spread of Shapley values, which means it is less decisive for the predicted happiness if the respondent answered with a high or low value for this question.
+Every dot in this plot corresponds to one feature's Shapley value calculated for one person. We can see that features like health, satisfaction with the economy, and emotional attachment to the country are rather informative features. People who answered with a high value for health have a high Shapley value for this feature, which means it contributes strongly to their happiness. On the contrary, people who answered with a low value for health have a low negative Shapley value for this feature, which means it reduces their happiness. More healthy, more happy - makes sense. Other features, such as meeting with friends and taking part in social activities, have a lower spread of Shapley values, which means it is less decisive for the predicted happiness if the respondent answered with a high or low value for this question.
 
 Pretty cool, right? We can feed our models with data that we already have and let it generalize to new observations to predict something we are interested in. And we can even find out and quantify which aspects are important, overall and for individual predictions. This may seem a bit trivial in a toy example like predicting happiness, but in principle we can apply these techniques for every problem in which we need to predict a value or classify something based on what we know from previous examples.
 
